@@ -2,6 +2,9 @@ package LunarLander;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Map;
 import java.util.Properties;
 
@@ -14,6 +17,7 @@ public class GameController extends JFrame {
     public static STATE GameState = null;
 
     private PropertiesManager propertiesManager = PropertiesManager.getInstance();
+    private InputManager inputManager = InputManager.getInstance();
 
     private MainMenu mainMenu;
 
@@ -22,7 +26,6 @@ public class GameController extends JFrame {
 
 
         mainMenu = new MainMenu(this);
-
 
         initGame();
 
@@ -63,7 +66,15 @@ public class GameController extends JFrame {
     private void initFrame(){
         setTitle(NAME);
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        WindowListener l = new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                ((Component) e.getSource()).setVisible(false);((Window) e.getSource()).dispose(); // sprawdź !
+                //System.exit(0); // sprawdź !
+            }
+        };
+        addWindowListener(l);
         pack();
         requestFocus();
         setLocationRelativeTo(null);
