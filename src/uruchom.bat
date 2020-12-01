@@ -1,5 +1,5 @@
 cd LunarLander
 del *.class
 javac *.java
-cd..
+cd ..
 java LunarLander.Main
